@@ -23,9 +23,9 @@ pip install -r requirements.txt
 ```
 
 ## Configuration
-Edit **'env.json'** with the desired values.
-
-Create a Digital Ocean API token ([How-to](https://docs.digitalocean.com/reference/api/create-personal-access-token/))
+- Edit **'env.json'** with the desired values.
+- Create a Digital Ocean API token. ([How-to](https://docs.digitalocean.com/reference/api/create-personal-access-token/))
+- Customize **'docker-compose.yml'** file to your needs. ([Documentation](https://hub.docker.com/r/linuxserver/swag))
 
 ## Usage
 #### Interactive
