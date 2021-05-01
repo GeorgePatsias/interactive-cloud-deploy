@@ -1,0 +1,26 @@
+---
+  version: "3.2"
+  
+  services:
+  
+    letsencrypt:
+      image: linuxserver/swag:latest
+      container_name: letsencrypt
+      environment:
+        - PUID=1000
+        - PGID=1000
+        - TZ=Europe/UTC
+        - URL=<DOMAIN HERE>
+        - SUBDOMAINS=www,
+        - VALIDATION=http
+        - STAGING=false #optional
+      volumes:
+        - ./letsencrypt:/config
+        - vol_nginx_logs:/config/log/nginx
+      ports:
+        - 443:443
+        - 80:80
+      restart: always
+  
+  volumes:
+     vol_nginx_logs:
