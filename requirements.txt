@@ -1,0 +1,4 @@
+termcolor==1.1.0
+requests==2.25.1
+python_digitalocean==1.16.0
+ansible==3.3.0
