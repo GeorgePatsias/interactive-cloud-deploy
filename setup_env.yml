@@ -1,0 +1,52 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: apt-get update
+      apt:
+        update_cache: yes
+      when: ansible_distribution == "Ubuntu"
+    - name: apt-get upgrade
+      apt:
+        name: "*"
+        state: latest
+    - name: apt-get autoremove
+      apt:
+        autoremove: yes
+    - name: apt-get autoclean
+      apt:
+        autoclean: yes
+    - name: Installing required packages
+      apt:
+        pkg: "{{ packages }}"
+    - name: Create user
+      user:
+        name: "{{ user_name }}"
+        # password: "{{ user_password }}"
+        groups:
+          - docker
+        state: present
+        shell: /bin/bash
+        system: no
+        createhome: yes
+        home: /home/{{ user_name }}
+    - name: Creating Deployment directory
+      file:
+        path: /home/{{ user_name }}/deployment
+        state: directory
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        mode: 0775
+    - name: Uploading Docker Compose file to remote server
+      copy:
+        src: docker-compose.yml
+        dest: /home/{{ user_name }}/deployment/docker-compose.yml
+        owner: "{{ user_name }}"
+        group: "{{ user_name }}"
+        mode: 0644
+        force: yes
+    - name: Start detached Docker Compose
+      docker_compose:
+        project_src: /home/{{ user_name }}/deployment
+        files:
+          - docker-compose.yml
