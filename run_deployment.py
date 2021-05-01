@@ -255,18 +255,7 @@ def setup_environment(network_info):
         json.dump(json_decoded, json_file, indent=4)
 
     try:
-        process = Popen(
-            [
-                "ansible-playbook",
-                "-i",
-                f"{ip},",
-                "setup_env.yml",
-                "-e",
-                "@env.json"
-            ],
-            stdout=PIPE,
-            encoding='utf-8'
-        )
+        process = Popen(["ansible-playbook", "-i", f"{ip},", "setup_env.yml", "-e", "@env.json"], stdout=PIPE, encoding='utf-8')
 
         while True:
             line = process.stdout.readline()
@@ -276,8 +265,7 @@ def setup_environment(network_info):
 
         print(f'[{colored("SUCCESS","green")}]: Droplet environment set\n')
 
-    except Exception as e:
-        print(e)
+    except Exception:
         print(f'[{colored("ERROR","red")}]: Cannot set environment! Something went wrong\n')
 
 
