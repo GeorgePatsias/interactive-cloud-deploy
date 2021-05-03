@@ -37,6 +37,20 @@ Configure **'config'** JSON document inside **'run_deployment.py'** file.
 ```bash
 python3 run_deployment.py
 ```
+## Testing Purposes
+Replace **'docker-compose.yml'** with the following:
+```docker
+---
+  version: "3.2"
+  
+  services:
+    test:
+      image: tutum/hello-world
+      container_name: test
+      ports:
+        - 5000:80
+```
+Navigate to **http://<Droplet_IP>:5000/** to see the results.
 
 ## References
 - Digital Ocean: [https://developers.digitalocean.com/documentation/v2/](https://developers.digitalocean.com/documentation/v2/)
